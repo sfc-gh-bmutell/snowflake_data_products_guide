@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snowflake Horizon: Governance & Collaboration Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Snowflake Brand Colors */
+            --snowflake-blue: #29B5E8;
+            --snowflake-dark-blue: #11567F;
+            --snowflake-light-blue: #E8F4FA;
+            --snowflake-navy: #0D2B45;
+            --snowflake-gradient-start: #29B5E8;
+            --snowflake-gradient-end: #11567F;
+            
+            /* Governance Accent - Purple for governance/compliance */
+            --governance-purple: #7C3AED;
+            --governance-light: #EDE9FE;
+            
+            /* Neutrals */
+            --white: #FFFFFF;
+            --light-gray: #F7F9FC;
+            --medium-gray: #E5E9F0;
+            --dark-gray: #4A5568;
+            --text-primary: #1A202C;
+            --text-secondary: #718096;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--light-gray);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--snowflake-navy) 0%, var(--snowflake-dark-blue) 100%);
+            color: var(--white);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .snowflake-logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .audience-badge {
+            background: var(--governance-purple);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-content {
+            padding: 3rem 2rem 4rem;
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: var(--white);
+            border-bottom: 1px solid var(--medium-gray);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav {
+            display: flex;
+            gap: 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav a:hover {
+            color: var(--governance-purple);
+            background: var(--governance-light);
+            border-bottom-color: var(--governance-purple);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--governance-light);
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--governance-purple) 0%, var(--snowflake-dark-blue) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        .section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--snowflake-navy);
+            letter-spacing: -0.5px;
+        }
+
+        .section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--snowflake-dark-blue);
+            margin: 2rem 0 1rem;
+        }
+
+        .section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border: 1px solid var(--medium-gray);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--snowflake-navy);
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: var(--governance-light);
+        }
+
+        code {
+            background: var(--light-gray);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.85em;
+            color: var(--governance-purple);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--snowflake-navy);
+            color: #E2E8F0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .code-comment {
+            color: #68D391;
+        }
+
+        .code-keyword {
+            color: #63B3ED;
+        }
+
+        .code-string {
+            color: #F6AD55;
+        }
+
+        .code-function {
+            color: #B794F4;
+        }
+
+        /* Link Cards */
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--light-gray);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            border: 1px solid var(--medium-gray);
+            transition: all 0.2s ease;
+        }
+
+        .link-card:hover {
+            background: var(--governance-light);
+            border-color: var(--governance-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+        }
+
+        .link-card .icon {
+            width: 36px;
+            height: 36px;
+            background: var(--governance-purple);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .link-card .link-content {
+            flex: 1;
+        }
+
+        .link-card .link-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .link-card .link-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .link-card .arrow {
+            color: var(--governance-purple);
+            font-size: 1.2rem;
+        }
+
+        /* Feature List */
+        .feature-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .feature-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--governance-purple);
+            font-weight: bold;
+        }
+
+        /* Subsection */
+        .subsection {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--governance-purple);
+        }
+
+        .subsection h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--snowflake-dark-blue);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(41, 181, 232, 0.1) 100%);
+            border: 2px solid var(--governance-purple);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--snowflake-navy);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box h4 .badge {
+            background: var(--governance-purple);
+            color: var(--white);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Pillar Grid */
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .pillar-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            border: 1px solid var(--medium-gray);
+            transition: all 0.2s ease;
+        }
+
+        .pillar-card:hover {
+            border-color: var(--governance-purple);
+            transform: translateY(-2px);
+        }
+
+        .pillar-card .pillar-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-card .pillar-title {
+            font-weight: 600;
+            color: var(--snowflake-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-card .pillar-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--snowflake-navy);
+            color: var(--white);
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--governance-purple);
+        }
+
+        .footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: var(--snowflake-blue);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 1.75rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .nav a {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-container">
+                <svg class="snowflake-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#29B5E8"/>
+                    <path d="M50 15v70M50 15l-8 8M50 15l8 8M50 85l-8-8M50 85l8-8" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M20 50h60M20 50l8-8M20 50l8 8M80 50l-8-8M80 50l-8 8" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M28 28l44 44M28 28l0 11M28 28l11 0M72 72l0-11M72 72l-11 0" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M72 28L28 72M72 28l0 11M72 28l-11 0M28 72l0-11M28 72l11 0" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+                <span class="logo-text">Snowflake Horizon</span>
+            </div>
+            <div class="audience-badge">
+                <span>For</span>
+                <strong>Data Governance Teams</strong>
+            </div>
+        </div>
+        <div class="header-content">
+            <h1>Governance & Collaboration Guide</h1>
+            <p>Your comprehensive guide to Snowflake Horizon — the built-in governance layer for discovery, compliance, security, privacy, and collaboration. Designed for data governance managers and data stewards.</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav">
+            <a href="#overview">Horizon Overview</a>
+            <a href="#discovery">Discovery & Catalog</a>
+            <a href="#classification">Classification & Compliance</a>
+            <a href="#security">Security & Access Control</a>
+            <a href="#quality">Data Quality Monitoring</a>
+            <a href="#data-products">Creating Data Products</a>
+            <a href="#resources">Resources</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        
+        <!-- Section 1: Horizon Overview -->
+        <section id="overview" class="section">
+            <div class="section-header">
+                <div class="section-icon">🏔️</div>
+                <h2>Snowflake Horizon Overview</h2>
+            </div>
+            
+            <p>Snowflake Horizon is the built-in governance layer integrated into the Snowflake AI Data Cloud. It provides a unified approach to data governance, enabling organizations to discover, protect, and manage data, applications, and models across their entire data estate.</p>
+            
+            <h3>Five Core Pillars</h3>
+            <div class="pillar-grid">
+                <div class="pillar-card">
+                    <div class="pillar-icon">🔍</div>
+                    <div class="pillar-title">Discovery</div>
+                    <div class="pillar-desc">Find and understand data assets with AI-powered search and catalog</div>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon">📋</div>
+                    <div class="pillar-title">Compliance</div>
+                    <div class="pillar-desc">Classify, tag, and audit data for regulatory requirements</div>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon">🔐</div>
+                    <div class="pillar-title">Security</div>
+                    <div class="pillar-desc">Control access with RBAC, masking, and row-level policies</div>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon">🛡️</div>
+                    <div class="pillar-title">Privacy</div>
+                    <div class="pillar-desc">Protect sensitive data with clean rooms and anonymization</div>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon">🔗</div>
+                    <div class="pillar-title">Interoperability</div>
+                    <div class="pillar-desc">Connect across clouds, regions, and Apache Iceberg tables</div>
+                </div>
+            </div>
+
+            <h3>What Horizon Governs</h3>
+            <ul class="feature-list">
+                <li>Data, apps, and models across your entire Snowflake organization</li>
+                <li>Apache Iceberg tables and external tables</li>
+                <li>Data shared through private listings and the Internal Marketplace</li>
+                <li>Snowflake Native Apps from the Marketplace</li>
+                <li>Data from third-party applications via connectors</li>
+            </ul>
+
+            <h3>Key Benefits for Governance Teams</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Benefit</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Unified Governance</strong></td><td>Single pane of glass for all governance activities across clouds and regions</td></tr>
+                        <tr><td><strong>Automated Classification</strong></td><td>AI-powered detection of PII, PHI, and sensitive data</td></tr>
+                        <tr><td><strong>Policy-at-Scale</strong></td><td>Tag-based policies automatically protect new data as it arrives</td></tr>
+                        <tr><td><strong>Complete Audit Trail</strong></td><td>Access history and lineage tracking via ACCOUNT_USAGE views</td></tr>
+                        <tr><td><strong>Governed Collaboration</strong></td><td>Secure data sharing without copying data</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="link-grid">
+                <a href="https://docs.snowflake.com/en/user-guide/snowflake-horizon" class="link-card" target="_blank">
+                    <div class="icon">📚</div>
+                    <div class="link-content">
+                        <div class="link-title">Horizon Catalog Overview</div>
+                        <div class="link-desc">Official documentation</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/governance" class="link-card" target="_blank">
+                    <div class="icon">📖</div>
+                    <div class="link-content">
+                        <div class="link-title">Governance Overview</div>
+                        <div class="link-desc">Complete governance guide</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 2: Discovery & Catalog -->
+        <section id="discovery" class="section">
+            <div class="section-header">
+                <div class="section-icon">🔍</div>
+                <h2>Discovery & Catalog</h2>
+            </div>
+
+            <p>Horizon Catalog provides a unified repository for discovering and understanding all data assets in your Snowflake environment. It combines AI-powered search, automatic metadata enrichment, and organizational data product discovery.</p>
+
+            <div class="subsection">
+                <h4>Universal Search</h4>
+                <p>Natural language search powered by Snowflake Cortex AI enables users to find data assets without knowing exact object names or locations. Search across databases, schemas, tables, views, and columns using business terms.</p>
+                <ul class="feature-list">
+                    <li>AI-powered semantic search across all Snowflake objects</li>
+                    <li>Search by business terms, not just technical names</li>
+                    <li>Filter by object type, owner, tags, and more</li>
+                    <li>Cross-account and cross-region discovery</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h4>AI-Powered Object Descriptions</h4>
+                <p>Automatically generate descriptions for tables, views, and columns using Snowflake Cortex. This helps users understand data context without manual documentation.</p>
+                <pre><code><span class="code-comment">-- Enable AI-generated descriptions for a table</span>
+<span class="code-keyword">ALTER TABLE</span> my_db.my_schema.customers
+  <span class="code-keyword">SET</span> <span class="code-function">AI_DESCRIPTION</span> = <span class="code-keyword">TRUE</span>;
+
+<span class="code-comment">-- View the generated description</span>
+<span class="code-keyword">DESCRIBE TABLE</span> my_db.my_schema.customers;</code></pre>
+            </div>
+
+            <div class="subsection">
+                <h4>Internal Marketplace</h4>
+                <p>The Internal Marketplace enables teams to discover and access organizational data products (listings) without data duplication. Data stewards can curate and publish governed datasets for internal consumption.</p>
+                <ul class="feature-list">
+                    <li>Browse organizational listings shared within your company</li>
+                    <li>Request access to data products with approval workflows</li>
+                    <li>No data copying — access data in place</li>
+                    <li>Full RBAC integration for access control</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h4>Object Insights</h4>
+                <p>Understand data popularity, access patterns, quality metrics, and dependencies through the Object Insights interface in Snowsight.</p>
+                <ul class="feature-list">
+                    <li><strong>Popularity:</strong> See which tables and columns are most frequently queried</li>
+                    <li><strong>Access Patterns:</strong> Understand who is using your data and how</li>
+                    <li><strong>Quality Metrics:</strong> View data quality scores from DMFs</li>
+                    <li><strong>Dependencies:</strong> Visualize upstream and downstream lineage</li>
+                </ul>
+            </div>
+
+            <h3>Documentation & Resources</h3>
+            <div class="link-grid">
+                <a href="https://docs.snowflake.com/en/user-guide/ui-snowsight-quick-tour" class="link-card" target="_blank">
+                    <div class="icon">🖥️</div>
+                    <div class="link-content">
+                        <div class="link-title">Snowsight Quick Tour</div>
+                        <div class="link-desc">Navigate the Horizon UI</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-lineage" class="link-card" target="_blank">
+                    <div class="icon">🔗</div>
+                    <div class="link-content">
+                        <div class="link-title">Data Lineage</div>
+                        <div class="link-desc">Track data dependencies</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 3: Classification & Compliance -->
+        <section id="classification" class="section">
+            <div class="section-header">
+                <div class="section-icon">📋</div>
+                <h2>Classification & Compliance</h2>
+            </div>
+
+            <p>Snowflake provides powerful tools for classifying data and ensuring compliance with regulations like GDPR, HIPAA, and CCPA. Object tagging and automatic classification enable governance at scale.</p>
+
+            <h3>Object Tagging</h3>
+            <p>Tags are key-value pairs that you attach to Snowflake objects (databases, schemas, tables, columns, roles, users) to enable classification, cost tracking, and policy enforcement.</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tag Category</th>
+                            <th>Example Values</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Sensitivity</strong></td><td>PII, PHI, CONFIDENTIAL, PUBLIC</td><td>Drive masking policies and access controls</td></tr>
+                        <tr><td><strong>Domain</strong></td><td>FINANCE, MARKETING, HR, OPERATIONS</td><td>Enable domain-based governance and ownership</td></tr>
+                        <tr><td><strong>Quality Tier</strong></td><td>GOLD, SILVER, BRONZE</td><td>Indicate data product reliability for consumers</td></tr>
+                        <tr><td><strong>Lifecycle</strong></td><td>PRODUCTION, STAGING, DEPRECATED</td><td>Control pipeline access and retention</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre><code><span class="code-comment">-- Create a tag for PII classification</span>
+<span class="code-keyword">CREATE TAG</span> governance.tags.pii_classification
+  <span class="code-keyword">ALLOWED_VALUES</span> <span class="code-string">'HIGHLY_SENSITIVE'</span>, <span class="code-string">'SENSITIVE'</span>, <span class="code-string">'PUBLIC'</span>
+  <span class="code-keyword">COMMENT</span> = <span class="code-string">'Classifies data sensitivity level'</span>;
+
+<span class="code-comment">-- Apply tag to a column</span>
+<span class="code-keyword">ALTER TABLE</span> customers <span class="code-keyword">MODIFY COLUMN</span> email
+  <span class="code-keyword">SET TAG</span> governance.tags.pii_classification = <span class="code-string">'SENSITIVE'</span>;
+
+<span class="code-comment">-- Query tagged objects</span>
+<span class="code-keyword">SELECT</span> * <span class="code-keyword">FROM</span> snowflake.account_usage.tag_references
+<span class="code-keyword">WHERE</span> tag_name = <span class="code-string">'PII_CLASSIFICATION'</span>;</code></pre>
+
+            <h3>Automatic Sensitive Data Classification</h3>
+            <p>Snowflake's classification engine automatically scans column metadata and sample data to identify PII and sensitive attributes, then applies system tags for governance.</p>
+
+            <pre><code><span class="code-comment">-- Create a classification profile with auto-tagging</span>
+<span class="code-keyword">CREATE OR REPLACE</span> SNOWFLAKE.DATA_PRIVACY.CLASSIFICATION_PROFILE
+  my_classification_profile(
+  {
+    <span class="code-string">'minimum_object_age_for_classification_days'</span>: 0,
+    <span class="code-string">'maximum_classification_validity_days'</span>: 30,
+    <span class="code-string">'auto_tag'</span>: <span class="code-keyword">true</span>,
+    <span class="code-string">'classify_views'</span>: <span class="code-keyword">true</span>,
+    <span class="code-string">'tag_map'</span>: {
+      <span class="code-string">'column_tag_map'</span>: [
+        {
+          <span class="code-string">'tag_name'</span>: <span class="code-string">'governance.tags.pii'</span>,
+          <span class="code-string">'tag_value'</span>: <span class="code-string">'highly_sensitive'</span>,
+          <span class="code-string">'semantic_categories'</span>: [<span class="code-string">'NAME'</span>, <span class="code-string">'NATIONAL_IDENTIFIER'</span>]
+        },
+        {
+          <span class="code-string">'tag_name'</span>: <span class="code-string">'governance.tags.pii'</span>,
+          <span class="code-string">'tag_value'</span>: <span class="code-string">'sensitive'</span>,
+          <span class="code-string">'semantic_categories'</span>: [<span class="code-string">'EMAIL'</span>, <span class="code-string">'PHONE_NUMBER'</span>]
+        }
+      ]
+    }
+  });
+
+<span class="code-comment">-- Apply classification profile to a schema</span>
+<span class="code-keyword">ALTER SCHEMA</span> my_db.my_schema
+  <span class="code-keyword">SET</span> CLASSIFICATION_PROFILE = <span class="code-string">'my_classification_profile'</span>;
+
+<span class="code-comment">-- Manually classify a specific table</span>
+<span class="code-keyword">CALL</span> SYSTEM$CLASSIFY(<span class="code-string">'my_db.my_schema.customers'</span>, 
+  {<span class="code-string">'classification_profile'</span>: <span class="code-string">'my_classification_profile'</span>});</code></pre>
+
+            <h3>Built-in Semantic Categories</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Examples Detected</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>NAME</code></td><td>First name, last name, full name</td></tr>
+                        <tr><td><code>EMAIL</code></td><td>Email addresses</td></tr>
+                        <tr><td><code>PHONE_NUMBER</code></td><td>Phone numbers in various formats</td></tr>
+                        <tr><td><code>NATIONAL_IDENTIFIER</code></td><td>SSN, passport numbers, national IDs</td></tr>
+                        <tr><td><code>PAYMENT_CARD</code></td><td>Credit card numbers</td></tr>
+                        <tr><td><code>MEDICAL_CODE</code></td><td>ICD codes, medical identifiers</td></tr>
+                        <tr><td><code>IP_ADDRESS</code></td><td>IPv4 and IPv6 addresses</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Audit & Compliance Views</h3>
+            <pre><code><span class="code-comment">-- View all tag assignments in the account</span>
+<span class="code-keyword">SELECT</span> * <span class="code-keyword">FROM</span> snowflake.account_usage.tag_references
+<span class="code-keyword">WHERE</span> tag_database = <span class="code-string">'GOVERNANCE'</span>;
+
+<span class="code-comment">-- Track data access history</span>
+<span class="code-keyword">SELECT</span> 
+  user_name,
+  query_text,
+  base_objects_accessed
+<span class="code-keyword">FROM</span> snowflake.account_usage.access_history
+<span class="code-keyword">WHERE</span> query_start_time > DATEADD(day, -7, CURRENT_TIMESTAMP());</code></pre>
+
+            <div class="link-grid">
+                <a href="https://docs.snowflake.com/en/user-guide/object-tagging" class="link-card" target="_blank">
+                    <div class="icon">🏷️</div>
+                    <div class="link-content">
+                        <div class="link-title">Object Tagging Guide</div>
+                        <div class="link-desc">Complete tagging documentation</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/classify-auto" class="link-card" target="_blank">
+                    <div class="icon">🤖</div>
+                    <div class="link-content">
+                        <div class="link-title">Automatic Classification</div>
+                        <div class="link-desc">Set up auto-classification</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/sql-reference/account-usage" class="link-card" target="_blank">
+                    <div class="icon">📊</div>
+                    <div class="link-content">
+                        <div class="link-title">ACCOUNT_USAGE Views</div>
+                        <div class="link-desc">Audit and compliance queries</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 4: Security & Access Control -->
+        <section id="security" class="section">
+            <div class="section-header">
+                <div class="section-icon">🔐</div>
+                <h2>Security & Access Control</h2>
+            </div>
+
+            <p>Snowflake Horizon provides multiple layers of security through Role-Based Access Control (RBAC), dynamic data masking, and row access policies. These controls enable fine-grained data protection without data duplication.</p>
+
+            <h3>Role-Based Access Control (RBAC)</h3>
+            <p>RBAC is the foundation of Snowflake security. Permissions are granted to roles, and users are assigned to roles. This enables scalable security management through role hierarchies.</p>
+
+            <pre><code><span class="code-comment">-- Create a role hierarchy for data access</span>
+<span class="code-keyword">CREATE ROLE</span> data_reader;
+<span class="code-keyword">CREATE ROLE</span> data_analyst;
+<span class="code-keyword">CREATE ROLE</span> data_engineer;
+
+<span class="code-comment">-- Build hierarchy: engineer > analyst > reader</span>
+<span class="code-keyword">GRANT ROLE</span> data_reader <span class="code-keyword">TO ROLE</span> data_analyst;
+<span class="code-keyword">GRANT ROLE</span> data_analyst <span class="code-keyword">TO ROLE</span> data_engineer;
+
+<span class="code-comment">-- Grant permissions to base role</span>
+<span class="code-keyword">GRANT USAGE ON DATABASE</span> analytics <span class="code-keyword">TO ROLE</span> data_reader;
+<span class="code-keyword">GRANT USAGE ON SCHEMA</span> analytics.public <span class="code-keyword">TO ROLE</span> data_reader;
+<span class="code-keyword">GRANT SELECT ON ALL TABLES IN SCHEMA</span> analytics.public <span class="code-keyword">TO ROLE</span> data_reader;</code></pre>
+
+            <h3>Dynamic Data Masking</h3>
+            <p>Masking policies control what users see at the column level based on their role. The actual data never changes — Snowflake applies transformations at query time.</p>
+
+            <pre><code><span class="code-comment">-- Create a masking policy for SSN</span>
+<span class="code-keyword">CREATE MASKING POLICY</span> mask_ssn <span class="code-keyword">AS</span> (val STRING) 
+  <span class="code-keyword">RETURNS</span> STRING ->
+  <span class="code-keyword">CASE</span>
+    <span class="code-keyword">WHEN</span> CURRENT_ROLE() <span class="code-keyword">IN</span> (<span class="code-string">'HR_ADMIN'</span>, <span class="code-string">'COMPLIANCE_OFFICER'</span>) <span class="code-keyword">THEN</span> val
+    <span class="code-keyword">ELSE</span> <span class="code-string">'XXX-XX-'</span> || RIGHT(val, 4)
+  <span class="code-keyword">END</span>;
+
+<span class="code-comment">-- Apply masking policy to a column</span>
+<span class="code-keyword">ALTER TABLE</span> employees <span class="code-keyword">MODIFY COLUMN</span> ssn
+  <span class="code-keyword">SET MASKING POLICY</span> mask_ssn;
+
+<span class="code-comment">-- Create a masking policy for email</span>
+<span class="code-keyword">CREATE MASKING POLICY</span> mask_email <span class="code-keyword">AS</span> (val STRING)
+  <span class="code-keyword">RETURNS</span> STRING ->
+  <span class="code-keyword">CASE</span>
+    <span class="code-keyword">WHEN</span> CURRENT_ROLE() <span class="code-keyword">IN</span> (<span class="code-string">'MARKETING_ADMIN'</span>) <span class="code-keyword">THEN</span> val
+    <span class="code-keyword">ELSE</span> REGEXP_REPLACE(val, <span class="code-string">'.+\@'</span>, <span class="code-string">'***@'</span>)
+  <span class="code-keyword">END</span>;</code></pre>
+
+            <h3>Tag-Based Masking</h3>
+            <p>The most scalable approach: bind masking policies to tags, then tag columns. The policy automatically applies to any column with that tag.</p>
+
+            <pre><code><span class="code-comment">-- Create a tag for PII</span>
+<span class="code-keyword">CREATE TAG</span> governance.tags.pii;
+
+<span class="code-comment">-- Create masking policies for different data types</span>
+<span class="code-keyword">CREATE MASKING POLICY</span> mask_pii_string <span class="code-keyword">AS</span> (val STRING)
+  <span class="code-keyword">RETURNS</span> STRING ->
+  <span class="code-keyword">CASE</span>
+    <span class="code-keyword">WHEN</span> CURRENT_ROLE() <span class="code-keyword">IN</span> (<span class="code-string">'DATA_OWNER'</span>, <span class="code-string">'COMPLIANCE_ADMIN'</span>) <span class="code-keyword">THEN</span> val
+    <span class="code-keyword">ELSE</span> <span class="code-string">'**MASKED**'</span>
+  <span class="code-keyword">END</span>;
+
+<span class="code-comment">-- Bind masking policy to the tag</span>
+<span class="code-keyword">ALTER TAG</span> governance.tags.pii
+  <span class="code-keyword">SET MASKING POLICY</span> mask_pii_string;
+
+<span class="code-comment">-- Now any column tagged with 'pii' is automatically protected</span>
+<span class="code-keyword">ALTER TABLE</span> customers <span class="code-keyword">MODIFY COLUMN</span> email
+  <span class="code-keyword">SET TAG</span> governance.tags.pii = <span class="code-string">'true'</span>;
+
+<span class="code-keyword">ALTER TABLE</span> customers <span class="code-keyword">MODIFY COLUMN</span> phone
+  <span class="code-keyword">SET TAG</span> governance.tags.pii = <span class="code-string">'true'</span>;</code></pre>
+
+            <h3>Row Access Policies</h3>
+            <p>Row access policies filter entire rows based on the querying role or user attributes. Use mapping tables for flexible, maintainable access rules.</p>
+
+            <pre><code><span class="code-comment">-- Create a mapping table for role-to-region access</span>
+<span class="code-keyword">CREATE TABLE</span> governance.role_region_mapping (
+  role_name STRING,
+  allowed_region STRING
+);
+
+<span class="code-keyword">INSERT INTO</span> governance.role_region_mapping <span class="code-keyword">VALUES</span>
+  (<span class="code-string">'SALES_MANAGER_EMEA'</span>, <span class="code-string">'EMEA'</span>),
+  (<span class="code-string">'SALES_MANAGER_APAC'</span>, <span class="code-string">'APAC'</span>),
+  (<span class="code-string">'SALES_MANAGER_AMER'</span>, <span class="code-string">'AMER'</span>),
+  (<span class="code-string">'EXECUTIVE'</span>, <span class="code-string">'EMEA'</span>),
+  (<span class="code-string">'EXECUTIVE'</span>, <span class="code-string">'APAC'</span>),
+  (<span class="code-string">'EXECUTIVE'</span>, <span class="code-string">'AMER'</span>);
+
+<span class="code-comment">-- Create row access policy</span>
+<span class="code-keyword">CREATE ROW ACCESS POLICY</span> region_filter <span class="code-keyword">AS</span> (region_col STRING)
+  <span class="code-keyword">RETURNS</span> BOOLEAN ->
+  <span class="code-keyword">EXISTS</span> (
+    <span class="code-keyword">SELECT</span> 1 <span class="code-keyword">FROM</span> governance.role_region_mapping
+    <span class="code-keyword">WHERE</span> role_name = CURRENT_ROLE()
+      <span class="code-keyword">AND</span> allowed_region = region_col
+  );
+
+<span class="code-comment">-- Apply row access policy to table</span>
+<span class="code-keyword">ALTER TABLE</span> sales_data
+  <span class="code-keyword">ADD ROW ACCESS POLICY</span> region_filter <span class="code-keyword">ON</span> (region);</code></pre>
+
+            <div class="highlight-box">
+                <h4><span class="badge">Best Practice</span> Policy Lifecycle</h4>
+                <p>Always test policies in development before production. Poorly designed policies can block legitimate access or create performance issues. Use the <code>POLICY_REFERENCES</code> Information Schema function to verify policy assignments.</p>
+            </div>
+
+            <div class="link-grid">
+                <a href="https://docs.snowflake.com/en/user-guide/security-access-control-overview" class="link-card" target="_blank">
+                    <div class="icon">🔒</div>
+                    <div class="link-content">
+                        <div class="link-title">Access Control Overview</div>
+                        <div class="link-desc">RBAC fundamentals</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/security-column-ddm-intro" class="link-card" target="_blank">
+                    <div class="icon">🎭</div>
+                    <div class="link-content">
+                        <div class="link-title">Dynamic Data Masking</div>
+                        <div class="link-desc">Masking policy guide</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/security-row-intro" class="link-card" target="_blank">
+                    <div class="icon">📑</div>
+                    <div class="link-content">
+                        <div class="link-title">Row Access Policies</div>
+                        <div class="link-desc">Row-level security</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/tag-based-masking-policies" class="link-card" target="_blank">
+                    <div class="icon">🏷️</div>
+                    <div class="link-content">
+                        <div class="link-title">Tag-Based Masking</div>
+                        <div class="link-desc">Scalable policy enforcement</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 5: Data Quality Monitoring -->
+        <section id="quality" class="section">
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <h2>Data Quality Monitoring</h2>
+            </div>
+
+            <p>Data Metric Functions (DMFs) enable continuous monitoring of data quality within Snowflake. Use system-provided DMFs for common checks or create custom DMFs for business-specific validation.</p>
+
+            <h3>System Data Metric Functions</h3>
+            <p>Snowflake provides built-in DMFs in the <code>SNOWFLAKE.CORE</code> schema:</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>DMF</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td rowspan="4"><strong>Accuracy</strong></td><td><code>NULL_COUNT</code></td><td>Count of NULL values in a column</td></tr>
+                        <tr><td><code>NULL_PERCENT</code></td><td>Percentage of NULL values</td></tr>
+                        <tr><td><code>BLANK_COUNT</code></td><td>Count of blank/empty values</td></tr>
+                        <tr><td><code>BLANK_PERCENT</code></td><td>Percentage of blank values</td></tr>
+                        <tr><td><strong>Freshness</strong></td><td><code>FRESHNESS</code></td><td>Data freshness based on timestamp column or last DML</td></tr>
+                        <tr><td rowspan="2"><strong>Uniqueness</strong></td><td><code>DUPLICATE_COUNT</code></td><td>Number of duplicate values</td></tr>
+                        <tr><td><code>UNIQUE_COUNT</code></td><td>Number of unique non-NULL values</td></tr>
+                        <tr><td><strong>Volume</strong></td><td><code>ROW_COUNT</code></td><td>Total number of records</td></tr>
+                        <tr><td><strong>Validity</strong></td><td><code>ACCEPTED_VALUES</code></td><td>Check if values match expected criteria</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Associating DMFs with Tables</h3>
+            <pre><code><span class="code-comment">-- Associate NULL_COUNT DMF with a column</span>
+<span class="code-keyword">ALTER TABLE</span> customers
+  <span class="code-keyword">ADD DATA METRIC FUNCTION</span> SNOWFLAKE.CORE.NULL_COUNT
+    <span class="code-keyword">ON</span> (email);
+
+<span class="code-comment">-- Associate ROW_COUNT DMF with a table</span>
+<span class="code-keyword">ALTER TABLE</span> orders
+  <span class="code-keyword">ADD DATA METRIC FUNCTION</span> SNOWFLAKE.CORE.ROW_COUNT
+    <span class="code-keyword">ON</span> ();
+
+<span class="code-comment">-- Check for freshness based on timestamp column</span>
+<span class="code-keyword">ALTER TABLE</span> events
+  <span class="code-keyword">ADD DATA METRIC FUNCTION</span> SNOWFLAKE.CORE.FRESHNESS
+    <span class="code-keyword">ON</span> (event_timestamp);
+
+<span class="code-comment">-- Validate accepted values</span>
+<span class="code-keyword">ALTER TABLE</span> orders
+  <span class="code-keyword">ADD DATA METRIC FUNCTION</span> SNOWFLAKE.CORE.ACCEPTED_VALUES
+    <span class="code-keyword">ON</span> (status, status -> status <span class="code-keyword">IN</span> (<span class="code-string">'PENDING'</span>, <span class="code-string">'SHIPPED'</span>, <span class="code-string">'DELIVERED'</span>));</code></pre>
+
+            <h3>Setting DMF Schedules</h3>
+            <pre><code><span class="code-comment">-- Set DMF to run every 60 minutes</span>
+<span class="code-keyword">ALTER TABLE</span> customers
+  <span class="code-keyword">SET</span> DATA_METRIC_SCHEDULE = <span class="code-string">'60 MINUTES'</span>;
+
+<span class="code-comment">-- Set DMF to run on a cron schedule (daily at 6 AM)</span>
+<span class="code-keyword">ALTER TABLE</span> customers
+  <span class="code-keyword">SET</span> DATA_METRIC_SCHEDULE = <span class="code-string">'USING CRON 0 6 * * * America/Los_Angeles'</span>;
+
+<span class="code-comment">-- Set DMF to run when table is modified</span>
+<span class="code-keyword">ALTER TABLE</span> customers
+  <span class="code-keyword">SET</span> DATA_METRIC_SCHEDULE = <span class="code-string">'TRIGGER_ON_CHANGES'</span>;</code></pre>
+
+            <h3>Creating Custom DMFs</h3>
+            <pre><code><span class="code-comment">-- Create a custom DMF for referential integrity</span>
+<span class="code-keyword">CREATE DATA METRIC FUNCTION</span> governance.dmfs.referential_check(
+  arg_t1 <span class="code-keyword">TABLE</span> (arg_c1 INT),
+  arg_t2 <span class="code-keyword">TABLE</span> (arg_c2 INT)
+)
+<span class="code-keyword">RETURNS</span> NUMBER <span class="code-keyword">AS</span>
+$$
+  <span class="code-keyword">SELECT COUNT</span>(*) <span class="code-keyword">FROM</span> arg_t1
+  <span class="code-keyword">WHERE</span> arg_c1 <span class="code-keyword">NOT IN</span> (<span class="code-keyword">SELECT</span> arg_c2 <span class="code-keyword">FROM</span> arg_t2)
+$$;
+
+<span class="code-comment">-- Apply custom DMF to validate foreign key</span>
+<span class="code-keyword">ALTER TABLE</span> orders
+  <span class="code-keyword">ADD DATA METRIC FUNCTION</span> governance.dmfs.referential_check
+    <span class="code-keyword">ON</span> (customer_id, <span class="code-keyword">TABLE</span>(my_db.public.customers(id)));</code></pre>
+
+            <h3>Viewing DMF Results</h3>
+            <pre><code><span class="code-comment">-- Query DMF results from the monitoring view</span>
+<span class="code-keyword">SELECT</span>
+  measurement_time,
+  metric_database,
+  metric_schema,
+  metric_name,
+  table_name,
+  column_names,
+  value
+<span class="code-keyword">FROM</span> snowflake.account_usage.data_quality_monitoring_results
+<span class="code-keyword">WHERE</span> measurement_time > DATEADD(day, -7, CURRENT_TIMESTAMP())
+<span class="code-keyword">ORDER BY</span> measurement_time <span class="code-keyword">DESC</span>;</code></pre>
+
+            <div class="link-grid">
+                <a href="https://docs.snowflake.com/en/user-guide/data-quality-intro" class="link-card" target="_blank">
+                    <div class="icon">📊</div>
+                    <div class="link-content">
+                        <div class="link-title">Data Quality Introduction</div>
+                        <div class="link-desc">DMF fundamentals</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-quality-system-dmfs" class="link-card" target="_blank">
+                    <div class="icon">🔧</div>
+                    <div class="link-content">
+                        <div class="link-title">System DMFs Reference</div>
+                        <div class="link-desc">Built-in DMF documentation</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-quality-custom-dmfs" class="link-card" target="_blank">
+                    <div class="icon">⚙️</div>
+                    <div class="link-content">
+                        <div class="link-title">Custom DMFs</div>
+                        <div class="link-desc">Create your own metrics</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-quality-ui-monitor" class="link-card" target="_blank">
+                    <div class="icon">🖥️</div>
+                    <div class="link-content">
+                        <div class="link-title">Monitor in Snowsight</div>
+                        <div class="link-desc">UI-based monitoring</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 6: Creating Data Products -->
+        <section id="data-products" class="section">
+            <div class="section-header">
+                <div class="section-icon">📦</div>
+                <h2>Creating Data Products</h2>
+            </div>
+
+            <div class="highlight-box">
+                <h4><span class="badge">Key Section</span> Data Products for Data Stewards</h4>
+                <p>This section covers how data governance managers and stewards can create, publish, and manage data products using Snowflake's Internal Marketplace and Provider Studio.</p>
+            </div>
+
+            <h3>What is a Data Product?</h3>
+            <p>A data product is a curated, governed dataset or application published as a listing. Data products enable self-service data access while maintaining governance controls. They can be shared internally (organizational listings) or externally (Marketplace listings).</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Listing Type</th>
+                            <th>Audience</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Organizational Listings</strong></td><td>Internal teams within your organization</td><td>Share curated datasets across departments without data duplication</td></tr>
+                        <tr><td><strong>Private Listings</strong></td><td>Specific external Snowflake accounts</td><td>Share data with partners, customers, or subsidiaries</td></tr>
+                        <tr><td><strong>Marketplace Listings</strong></td><td>All Snowflake customers</td><td>Monetize data or provide public datasets</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Step 1: Prepare Your Data</h3>
+            <p>Before creating a data product, ensure your data is properly governed:</p>
+            <ul class="feature-list">
+                <li>Apply appropriate tags for classification (PII, sensitivity level, domain)</li>
+                <li>Set up masking policies for sensitive columns</li>
+                <li>Configure row access policies if needed</li>
+                <li>Associate DMFs to monitor data quality</li>
+                <li>Document the data with descriptions and metadata</li>
+            </ul>
+
+            <h3>Step 2: Create a Provider Profile</h3>
+            <p>A provider profile is required to publish listings (except for free internal listings).</p>
+
+            <pre><code><span class="code-comment">-- Grant privileges to create listings</span>
+<span class="code-keyword">USE ROLE</span> ACCOUNTADMIN;
+<span class="code-keyword">GRANT CREATE DATA EXCHANGE LISTING ON ACCOUNT TO ROLE</span> data_steward_role;
+
+<span class="code-comment">-- Navigate to Provider Studio in Snowsight:</span>
+<span class="code-comment">-- Data Products → Provider Studio → Profiles → + Profile</span></code></pre>
+
+            <div class="subsection">
+                <h4>Provider Profile Setup (Snowsight UI)</h4>
+                <ol style="margin-left: 1.5rem; color: var(--text-secondary);">
+                    <li>Sign in to Snowsight with ACCOUNTADMIN or a role with CREATE DATA EXCHANGE LISTING privilege</li>
+                    <li>Navigate to <strong>Data Products → Provider Studio</strong></li>
+                    <li>Select <strong>Profiles</strong> tab, then click <strong>+ Profile</strong></li>
+                    <li>Fill in organization name, contact information, and description</li>
+                    <li>Submit for verification (required for Marketplace listings)</li>
+                </ol>
+            </div>
+
+            <h3>Step 3: Create an Organizational Listing (Internal)</h3>
+            <p>Organizational listings are shared within your Snowflake organization through the Internal Marketplace.</p>
+
+            <div class="subsection">
+                <h4>Creating an Organizational Listing (Snowsight UI)</h4>
+                <ol style="margin-left: 1.5rem; color: var(--text-secondary);">
+                    <li>Navigate to <strong>Data Sharing → Internal Sharing</strong></li>
+                    <li>Click <strong>+ Listing</strong></li>
+                    <li>Enter a descriptive name for your listing</li>
+                    <li>Under "Who can discover," select <strong>Anyone in your organization</strong></li>
+                    <li>Click <strong>+ Select</strong> to attach database objects (tables, views, secure views)</li>
+                    <li>Add a description explaining the data, its source, and intended use</li>
+                    <li>Optionally add sample queries or documentation</li>
+                    <li>Click <strong>Publish</strong></li>
+                </ol>
+            </div>
+
+            <pre><code><span class="code-comment">-- Create a secure view for your data product</span>
+<span class="code-keyword">CREATE SECURE VIEW</span> analytics.data_products.customer_360 <span class="code-keyword">AS</span>
+<span class="code-keyword">SELECT</span>
+  c.customer_id,
+  c.customer_segment,
+  c.region,
+  o.total_orders,
+  o.total_revenue,
+  o.last_order_date
+<span class="code-keyword">FROM</span> core.customers c
+<span class="code-keyword">JOIN</span> (
+  <span class="code-keyword">SELECT</span>
+    customer_id,
+    <span class="code-keyword">COUNT</span>(*) <span class="code-keyword">AS</span> total_orders,
+    <span class="code-keyword">SUM</span>(amount) <span class="code-keyword">AS</span> total_revenue,
+    <span class="code-keyword">MAX</span>(order_date) <span class="code-keyword">AS</span> last_order_date
+  <span class="code-keyword">FROM</span> core.orders
+  <span class="code-keyword">GROUP BY</span> customer_id
+) o <span class="code-keyword">ON</span> c.customer_id = o.customer_id;
+
+<span class="code-comment">-- Add description for discoverability</span>
+<span class="code-keyword">COMMENT ON VIEW</span> analytics.data_products.customer_360 <span class="code-keyword">IS</span>
+  <span class="code-string">'Customer 360 view combining customer demographics with order history. 
+   Updated daily. Contact: data-team@company.com'</span>;</code></pre>
+
+            <h3>Step 4: Create a Private Listing (External)</h3>
+            <p>Share data with specific external Snowflake accounts (partners, customers).</p>
+
+            <div class="subsection">
+                <h4>Creating a Private Listing</h4>
+                <ol style="margin-left: 1.5rem; color: var(--text-secondary);">
+                    <li>Navigate to <strong>Data Products → Provider Studio</strong></li>
+                    <li>Click <strong>+ Listing</strong></li>
+                    <li>Enter a name and select <strong>Only specified consumers</strong></li>
+                    <li>Attach your database objects</li>
+                    <li>Add consumer Snowflake account identifiers (org_name.account_name)</li>
+                    <li>Set access type: Free, Limited Trial, or Paid</li>
+                    <li>Add terms of use and documentation</li>
+                    <li>Click <strong>Publish</strong></li>
+                </ol>
+            </div>
+
+            <h3>Step 5: Publish to Snowflake Marketplace (Public)</h3>
+            <p>For publicly available data products, publish to the Snowflake Marketplace.</p>
+
+            <div class="subsection">
+                <h4>Marketplace Publication Process</h4>
+                <ol style="margin-left: 1.5rem; color: var(--text-secondary);">
+                    <li>Complete and verify your Provider Profile</li>
+                    <li>Create a listing in Provider Studio with <strong>Anyone on the Marketplace</strong></li>
+                    <li>Add comprehensive documentation, sample queries, and data dictionary</li>
+                    <li>Configure pricing (Free, Limited Trial, or Paid)</li>
+                    <li>Submit for Snowflake review and approval</li>
+                    <li>Once approved, click <strong>Publish</strong> to make it available globally</li>
+                </ol>
+            </div>
+
+            <h3>Best Practices for Data Stewards</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Practice</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Use Secure Views</strong></td><td>Wrap raw tables in secure views to control what columns and rows are exposed</td></tr>
+                        <tr><td><strong>Document Thoroughly</strong></td><td>Include descriptions, data dictionaries, sample queries, and contact information</td></tr>
+                        <tr><td><strong>Apply Quality Tags</strong></td><td>Tag data products with quality tiers (Gold/Silver/Bronze) to set consumer expectations</td></tr>
+                        <tr><td><strong>Monitor Usage</strong></td><td>Track access patterns via ACCOUNT_USAGE views to understand consumption</td></tr>
+                        <tr><td><strong>Set Up DMFs</strong></td><td>Associate data quality metrics to ensure data products meet SLAs</td></tr>
+                        <tr><td><strong>Version Your Products</strong></td><td>Use naming conventions or views to manage data product versions</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Documentation & Resources</h3>
+            <div class="link-grid">
+                <a href="https://docs.snowflake.com/en/user-guide/data-sharing-provider" class="link-card" target="_blank">
+                    <div class="icon">📤</div>
+                    <div class="link-content">
+                        <div class="link-title">Data Sharing Provider Guide</div>
+                        <div class="link-desc">Complete provider documentation</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-sharing-listings" class="link-card" target="_blank">
+                    <div class="icon">📋</div>
+                    <div class="link-content">
+                        <div class="link-title">Creating Listings</div>
+                        <div class="link-desc">Listing management guide</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-sharing-marketplace" class="link-card" target="_blank">
+                    <div class="icon">🏪</div>
+                    <div class="link-content">
+                        <div class="link-title">Snowflake Marketplace</div>
+                        <div class="link-desc">Publishing to Marketplace</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://other-docs.snowflake.com/en/collaboration/provider-listings-gs" class="link-card" target="_blank">
+                    <div class="icon">🚀</div>
+                    <div class="link-content">
+                        <div class="link-title">Getting Started with Listings</div>
+                        <div class="link-desc">Step-by-step quickstart</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 7: Additional Resources -->
+        <section id="resources" class="section">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <h2>Additional Resources</h2>
+            </div>
+
+            <h3>Official Documentation</h3>
+            <div class="link-grid">
+                <a href="https://docs.snowflake.com/en/user-guide/snowflake-horizon" class="link-card" target="_blank">
+                    <div class="icon">🏔️</div>
+                    <div class="link-content">
+                        <div class="link-title">Horizon Catalog</div>
+                        <div class="link-desc">Main Horizon documentation</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/governance" class="link-card" target="_blank">
+                    <div class="icon">📖</div>
+                    <div class="link-content">
+                        <div class="link-title">Governance Overview</div>
+                        <div class="link-desc">Complete governance guide</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/security-access-control" class="link-card" target="_blank">
+                    <div class="icon">🔐</div>
+                    <div class="link-content">
+                        <div class="link-title">Access Control</div>
+                        <div class="link-desc">Security fundamentals</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/sql-reference/account-usage" class="link-card" target="_blank">
+                    <div class="icon">📊</div>
+                    <div class="link-content">
+                        <div class="link-title">ACCOUNT_USAGE Reference</div>
+                        <div class="link-desc">Audit and monitoring views</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+
+            <h3>Quickstarts & Tutorials</h3>
+            <div class="link-grid">
+                <a href="https://quickstarts.snowflake.com/guide/getting_started_with_snowflake/index.html" class="link-card" target="_blank">
+                    <div class="icon">🎓</div>
+                    <div class="link-content">
+                        <div class="link-title">Getting Started with Snowflake</div>
+                        <div class="link-desc">Foundational tutorial</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://quickstarts.snowflake.com/guide/getting_started_with_data_governance/index.html" class="link-card" target="_blank">
+                    <div class="icon">📋</div>
+                    <div class="link-content">
+                        <div class="link-title">Data Governance Quickstart</div>
+                        <div class="link-desc">Hands-on governance tutorial</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://quickstarts.snowflake.com/guide/data_teams_with_dbt_cloud/index.html" class="link-card" target="_blank">
+                    <div class="icon">🔧</div>
+                    <div class="link-content">
+                        <div class="link-title">dbt with Snowflake</div>
+                        <div class="link-desc">Data transformation best practices</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+
+            <h3>Developer Guides</h3>
+            <div class="link-grid">
+                <a href="https://www.snowflake.com/en/developers/guides/" class="link-card" target="_blank">
+                    <div class="icon">💻</div>
+                    <div class="link-content">
+                        <div class="link-title">Snowflake Developer Guides</div>
+                        <div class="link-desc">All developer resources</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-quality-intro" class="link-card" target="_blank">
+                    <div class="icon">✅</div>
+                    <div class="link-content">
+                        <div class="link-title">Data Quality Guide</div>
+                        <div class="link-desc">DMF implementation guide</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+
+            <h3>Community & Support</h3>
+            <div class="link-grid">
+                <a href="https://community.snowflake.com/" class="link-card" target="_blank">
+                    <div class="icon">👥</div>
+                    <div class="link-content">
+                        <div class="link-title">Snowflake Community</div>
+                        <div class="link-desc">Forums and discussions</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://www.snowflake.com/en/resources/webinar/" class="link-card" target="_blank">
+                    <div class="icon">🎥</div>
+                    <div class="link-content">
+                        <div class="link-title">Webinars & Events</div>
+                        <div class="link-desc">Live and recorded sessions</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://www.snowflake.com/blog/" class="link-card" target="_blank">
+                    <div class="icon">📝</div>
+                    <div class="link-content">
+                        <div class="link-title">Snowflake Blog</div>
+                        <div class="link-desc">Latest news and insights</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://www.snowflake.com/support/" class="link-card" target="_blank">
+                    <div class="icon">🆘</div>
+                    <div class="link-content">
+                        <div class="link-title">Snowflake Support</div>
+                        <div class="link-desc">Get help</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h4>Governance</h4>
+                <a href="https://docs.snowflake.com/en/user-guide/snowflake-horizon" target="_blank">Horizon Catalog</a>
+                <a href="https://docs.snowflake.com/en/user-guide/object-tagging" target="_blank">Object Tagging</a>
+                <a href="https://docs.snowflake.com/en/user-guide/classify-auto" target="_blank">Data Classification</a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-quality-intro" target="_blank">Data Quality (DMFs)</a>
+            </div>
+            <div>
+                <h4>Security</h4>
+                <a href="https://docs.snowflake.com/en/user-guide/security-access-control-overview" target="_blank">Access Control</a>
+                <a href="https://docs.snowflake.com/en/user-guide/security-column-ddm-intro" target="_blank">Dynamic Masking</a>
+                <a href="https://docs.snowflake.com/en/user-guide/security-row-intro" target="_blank">Row Access Policies</a>
+                <a href="https://docs.snowflake.com/en/user-guide/tag-based-masking-policies" target="_blank">Tag-Based Masking</a>
+            </div>
+            <div>
+                <h4>Data Products</h4>
+                <a href="https://docs.snowflake.com/en/user-guide/data-sharing-provider" target="_blank">Provider Guide</a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-sharing-listings" target="_blank">Creating Listings</a>
+                <a href="https://docs.snowflake.com/en/user-guide/data-sharing-marketplace" target="_blank">Snowflake Marketplace</a>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <a href="https://community.snowflake.com/" target="_blank">Community</a>
+                <a href="https://docs.snowflake.com/" target="_blank">Documentation</a>
+                <a href="https://www.snowflake.com/support/" target="_blank">Snowflake Support</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Snowflake Horizon Governance & Collaboration Guide | Last updated: February 2026</p>
+            <p style="margin-top: 0.5rem;">&copy; 2026 Snowflake Inc. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
